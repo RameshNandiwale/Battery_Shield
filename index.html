@@ -4,224 +4,299 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BatteryShield - Know Your EV Battery Before It's Too Late</title>
-    <meta name="description" content="Real-time EV battery health monitoring with AI predictions. Know when your battery will fail 6+ months ahead. Works with Tesla, VW, Hyundai, BMW and more. Built by Ramesh Yallappa Nandiwale.">
+    <meta name="description" content="Real-time EV battery health monitoring with AI predictions. Know when your battery will fail 6+ months ahead. Works with Tesla, VW, Hyundai, BMW and more.">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .gradient-blue-green {
-            background: linear-gradient(135deg, #0066FF 0%, #00D084 100%);
+        * {
+            scroll-behavior: smooth;
         }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+        }
+
+        .gradient-primary {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .gradient-secondary {
+            background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+        }
+
+        .gradient-tertiary {
+            background: linear-gradient(135deg, #6ee7b7 0%, #10b981 100%);
+        }
+
+        .gradient-quaternary {
+            background: linear-gradient(135deg, #a7f3d0 0%, #6ee7b7 100%);
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-glow {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-glow::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-glow:hover::before {
+            left: 100%;
+        }
+
         .text-gradient {
-            background: linear-gradient(135deg, #0066FF 0%, #00D084 100%);
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .hover-lift {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        .card-gradient-1 {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(52, 211, 153, 0.1) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.3);
         }
-        .hover-lift:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 102, 255, 0.15);
+
+        .card-gradient-2 {
+            background: linear-gradient(135deg, rgba(110, 231, 183, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+            border: 1px solid rgba(110, 231, 183, 0.3);
+        }
+
+        .card-gradient-3 {
+            background: linear-gradient(135deg, rgba(167, 243, 208, 0.1) 0%, rgba(110, 231, 183, 0.1) 100%);
+            border: 1px solid rgba(167, 243, 208, 0.3);
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
         }
     </style>
 </head>
-<body class="bg-white">
+<body class="bg-gray-950 text-white">
     <!-- NAVIGATION -->
-    <nav class="fixed w-full bg-white/95 backdrop-blur z-50 border-b border-gray-100">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <span class="text-2xl">🛡️</span>
-                <span class="font-bold text-xl text-gray-900">BatteryShield</span>
-                <span class="text-xs text-gray-500 ml-2">by Ramesh</span>
+    <nav class="fixed w-full z-50 glass-effect border-b border-emerald-500/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="gradient-primary p-2 rounded-lg">
+                    <span class="text-2xl">🛡️</span>
+                </div>
+                <span class="font-bold text-xl text-white">BatteryShield</span>
             </div>
             <div class="hidden md:flex items-center space-x-8">
-                <a href="#why" class="text-gray-600 hover:text-blue-600 font-medium">Why It Matters</a>
-                <a href="#how" class="text-gray-600 hover:text-blue-600 font-medium">How It Works</a>
-                <a href="#pricing" class="text-gray-600 hover:text-blue-600 font-medium">Pricing</a>
-                <a href="#faq" class="text-gray-600 hover:text-blue-600 font-medium">FAQ</a>
-                <a href="#signup" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 font-medium">Get Early Access</a>
+                <a href="#why" class="text-gray-300 hover:text-emerald-400 font-medium transition">Why It Matters</a>
+                <a href="#how" class="text-gray-300 hover:text-emerald-400 font-medium transition">How It Works</a>
+                <a href="#pricing" class="text-gray-300 hover:text-emerald-400 font-medium transition">Pricing</a>
+                <a href="#faq" class="text-gray-300 hover:text-emerald-400 font-medium transition">FAQ</a>
+                <a href="#signup" class="gradient-primary text-white px-6 py-2 rounded-lg hover:shadow-lg transition font-bold">Get Early Access</a>
             </div>
         </div>
     </nav>
 
     <!-- HERO SECTION -->
-    <section class="pt-32 pb-20 px-4 sm:px-6 bg-gradient-to-b from-blue-50 to-white">
-        <div class="max-w-6xl mx-auto">
+    <section class="pt-40 pb-32 px-4 sm:px-6 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-green-600 rounded-full mix-blend-multiply filter blur-3xl"></div>
+            <div class="absolute top-40 right-10 w-72 h-72 bg-emerald-600 rounded-full mix-blend-multiply filter blur-3xl"></div>
+            <div class="absolute -bottom-8 left-20 w-72 h-72 bg-teal-600 rounded-full mix-blend-multiply filter blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
             <div class="grid md:grid-cols-2 gap-12 items-center">
-                <!-- LEFT: Headline & CTA -->
                 <div>
-                    <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                        Stop Guessing About Your EV Battery
+                    <div class="inline-block gradient-secondary text-white px-4 py-2 rounded-full text-sm font-bold mb-6">
+                        🚀 AI-Powered Battery Monitoring
+                    </div>
+
+                    <h1 class="text-6xl md:text-7xl font-black mb-6 leading-tight">
+                        <span class="text-gradient">Stop Guessing</span>
+                        <br/>
+                        About Your
+                        <br/>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400">EV Battery</span>
                     </h1>
-                    <p class="text-xl text-gray-600 mb-4 font-light">
-                        Your EV battery is degrading right now. Most owners don't find out until it's $15,000 too late.
+
+                    <p class="text-xl text-gray-300 mb-4 font-light leading-relaxed">
+                        Your battery is degrading right now. Most owners don't find out until it's $15,000 too late.
                     </p>
-                    <p class="text-lg text-gray-700 mb-8 font-medium">
-                        BatteryShield predicts battery failure <span class="text-blue-600">6+ months ahead</span> with 94% accuracy. Based on your actual driving data.
+
+                    <p class="text-lg text-emerald-300 mb-8 font-semibold">
+                        🎯 Predict battery failure 6+ months ahead with AI accuracy
                     </p>
                     
                     <div class="flex flex-col sm:flex-row gap-4 mb-8">
-                        <a href="#signup" class="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 rounded-lg font-bold text-lg hover:shadow-lg transform hover:-translate-y-1 transition text-center">
+                        <a href="#signup" class="gradient-primary hover-lift btn-glow text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg">
                             Get Early Access (Free)
                         </a>
-                        <button class="border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-lg font-bold text-lg hover:border-gray-400 transition">
+                        <button class="glass-effect hover:glass-effect text-white px-8 py-4 rounded-xl font-bold text-lg transition hover:shadow-lg">
                             Watch Demo (2 min)
                         </button>
                     </div>
 
-                    <p class="text-sm text-gray-500 mb-6">
-                        ✓ Works with Tesla, VW, Hyundai, BMW, Chevy and more
-                        <br/>✓ No hardware needed. Uses your car's built-in data
-                        <br/>✓ Zero setup. Connect in 30 seconds
-                    </p>
-
-                    <div class="flex items-center space-x-6 text-sm text-gray-600">
-                        <div class="flex items-center space-x-2">
-                            <span class="text-2xl">👥</span>
-                            <span><strong>2,340</strong> EV owners<br/>monitoring now</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <span class="text-2xl">⭐</span>
-                            <span><strong>4.8/5</strong> rating<br/>on early access</span>
-                        </div>
+                    <div class="space-y-2 text-gray-300 mb-8">
+                        <p class="flex items-center gap-2">✨ Works with Tesla, VW, Hyundai, BMW, Chevy and more</p>
+                        <p class="flex items-center gap-2">⚡ No hardware needed. Uses your car's built-in data</p>
+                        <p class="flex items-center gap-2">🔒 Zero setup. Connect in 30 seconds</p>
                     </div>
                 </div>
 
-                <!-- RIGHT: Dashboard Image -->
-                <div class="hidden md:block">
-                    <div class="relative">
-                        <div class="absolute inset-0 gradient-blue-green rounded-2xl blur-3xl opacity-20"></div>
-                        <img 
-                            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=600&fit=crop" 
-                            alt="Battery Health Dashboard" 
-                            class="relative rounded-2xl shadow-2xl"
-                        />
-                    </div>
+                <div class="hidden md:block relative floating">
+                    <div class="absolute inset-0 gradient-secondary rounded-3xl blur-2xl opacity-50"></div>
+                    <div class="absolute inset-0 gradient-primary rounded-3xl blur-3xl opacity-30"></div>
+                    <img 
+                        src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=600&fit=crop" 
+                        alt="Battery Health Dashboard" 
+                        class="relative rounded-3xl shadow-2xl border-2 border-emerald-500/30"
+                    />
                 </div>
             </div>
         </div>
     </section>
 
     <!-- WHY IT MATTERS SECTION -->
-    <section id="why" class="py-20 px-4 sm:px-6 bg-white">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-center text-gray-900 mb-4">The Hidden Problem Nobody Talks About</h2>
-            <p class="text-center text-gray-600 text-lg mb-12 max-w-3xl mx-auto">
-                EV batteries degrade silently. Most owners discover problems too late. When a replacement costs $10,000 to $20,000.
-            </p>
+    <section id="why" class="py-32 px-4 sm:px-6 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-black mb-4 text-gradient">The Hidden Problem</h2>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">EV batteries degrade silently. Most owners discover problems too late.</p>
+            </div>
 
-            <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <div class="grid md:grid-cols-3 gap-8">
                 <!-- Problem 1 -->
-                <div class="hover-lift bg-gradient-to-br from-red-50 to-orange-50 p-8 rounded-xl border border-red-100">
-                    <div class="text-4xl mb-4">😟</div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Battery Anxiety</h3>
-                    <p class="text-gray-700">You don't know how much your battery has degraded. Your car won't tell you. You just wonder. Is it dying?</p>
+                <div class="hover-lift card-gradient-1 p-8 rounded-2xl">
+                    <div class="icon-box gradient-secondary mb-4 mx-auto">😟</div>
+                    <h3 class="text-2xl font-bold text-center mb-3 text-white">Battery Anxiety</h3>
+                    <p class="text-gray-300 text-center">You don't know how much your battery has degraded. Your car won't tell you.</p>
                 </div>
 
                 <!-- Problem 2 -->
-                <div class="hover-lift bg-gradient-to-br from-yellow-50 to-orange-50 p-8 rounded-xl border border-yellow-100">
-                    <div class="text-4xl mb-4">💰</div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Expensive Surprises</h3>
-                    <p class="text-gray-700">Batteries fail without warning. One day your car has 85% capacity. Next month: 40%. Replacement: $15K to $20K out of nowhere.</p>
+                <div class="hover-lift card-gradient-2 p-8 rounded-2xl">
+                    <div class="icon-box gradient-tertiary mb-4 mx-auto">💰</div>
+                    <h3 class="text-2xl font-bold text-center mb-3 text-white">Expensive Surprises</h3>
+                    <p class="text-gray-300 text-center">Batteries fail without warning. Replacement costs $15K to $20K out of nowhere.</p>
                 </div>
 
                 <!-- Problem 3 -->
-                <div class="hover-lift bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-xl border border-blue-100">
-                    <div class="text-4xl mb-4">📉</div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Unknown Trade Value</h3>
-                    <p class="text-gray-700">When selling your EV, you can't prove battery health. Buyers assume worst. You lose $5K to $10K in negotiation.</p>
+                <div class="hover-lift card-gradient-3 p-8 rounded-2xl">
+                    <div class="icon-box gradient-quaternary mb-4 mx-auto">📉</div>
+                    <h3 class="text-2xl font-bold text-center mb-3 text-white">Unknown Trade Value</h3>
+                    <p class="text-gray-300 text-center">When selling, you can't prove battery health. You lose $5K to $10K in negotiation.</p>
                 </div>
-            </div>
-
-            <div class="bg-gradient-to-r from-red-50 to-orange-50 border-l-4 border-red-500 p-6 rounded-lg max-w-3xl mx-auto">
-                <p class="text-gray-900 font-bold mb-2">Real Story:</p>
-                <p class="text-gray-700">
-                    "I owned my Tesla Model 3 for 3 years. Drove it normally. No warning signs. Then one day: 'Battery degradation detected.' 
-                    Went from 82% to 43% in 2 months. Tesla wanted $18,500 for replacement. 
-                    I had NO way to predict this was coming." — Jake M., Model 3 owner
-                </p>
             </div>
         </div>
     </section>
 
     <!-- HOW IT WORKS SECTION -->
-    <section id="how" class="py-20 px-4 sm:px-6 bg-gradient-to-b from-white to-blue-50">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-center text-gray-900 mb-4">How BatteryShield Works</h2>
-            <p class="text-center text-gray-600 text-lg mb-12 max-w-3xl mx-auto">
-                Three simple steps. Real answers. Peace of mind.
-            </p>
+    <section id="how" class="py-32 px-4 sm:px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-black mb-4 text-gradient">How BatteryShield Works</h2>
+                <p class="text-xl text-gray-300">Three simple steps. Real answers. Peace of mind.</p>
+            </div>
 
             <div class="grid md:grid-cols-3 gap-8 mb-12">
-                <!-- Step 1 -->
                 <div class="text-center">
-                    <div class="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">1</div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Connect Your Car</h3>
-                    <p class="text-gray-700 mb-4">Select your EV (Tesla, VW, Hyundai, BMW, etc). Securely connect your vehicle account. Takes 30 seconds.</p>
-                    <div class="text-5xl">🔗</div>
+                    <div class="gradient-primary w-16 h-16 rounded-full flex items-center justify-center text-3xl font-black mx-auto mb-6 shadow-lg">1</div>
+                    <h3 class="text-xl font-bold text-white mb-3">Connect Your Car</h3>
+                    <p class="text-gray-300 mb-4">Select your EV. Securely connect your vehicle account. Takes 30 seconds.</p>
+                    <div class="text-6xl">🔗</div>
                 </div>
 
-                <!-- Step 2 -->
                 <div class="text-center">
-                    <div class="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">2</div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">AI Analyzes Your Data</h3>
-                    <p class="text-gray-700 mb-4">Our AI models trained on 50,000+ batteries analyze your specific driving patterns, charging habits, and temperature exposure.</p>
-                    <div class="text-5xl">🤖</div>
+                    <div class="gradient-secondary w-16 h-16 rounded-full flex items-center justify-center text-3xl font-black mx-auto mb-6 shadow-lg">2</div>
+                    <h3 class="text-xl font-bold text-white mb-3">AI Analyzes Your Data</h3>
+                    <p class="text-gray-300 mb-4">Our AI analyzes your specific driving patterns, charging habits, and temperature exposure.</p>
+                    <div class="text-6xl">🤖</div>
                 </div>
 
-                <!-- Step 3 -->
                 <div class="text-center">
-                    <div class="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">3</div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Get Predictions and Tips</h3>
-                    <p class="text-gray-700 mb-4">Know your battery's remaining lifespan. Get AI-personalized charging tips. Predictions update monthly as you drive.</p>
-                    <div class="text-5xl">📊</div>
+                    <div class="gradient-tertiary w-16 h-16 rounded-full flex items-center justify-center text-3xl font-black mx-auto mb-6 shadow-lg">3</div>
+                    <h3 class="text-xl font-bold text-white mb-3">Get Predictions and Tips</h3>
+                    <p class="text-gray-300 mb-4">Know your battery's remaining lifespan. Get AI-personalized charging tips.</p>
+                    <div class="text-6xl">📊</div>
                 </div>
             </div>
 
             <!-- Key Features -->
-            <div class="bg-white rounded-xl border border-gray-200 p-8">
-                <h3 class="text-2xl font-bold text-gray-900 mb-6">What You Get</h3>
+            <div class="glass-effect p-12 rounded-2xl">
+                <h3 class="text-3xl font-bold text-white mb-8">What You Get</h3>
                 <div class="grid md:grid-cols-2 gap-6">
                     <div class="flex gap-4">
-                        <span class="text-2xl">📈</span>
+                        <span class="text-3xl">📈</span>
                         <div>
-                            <p class="font-bold text-gray-900">Battery Health Score</p>
-                            <p class="text-gray-600 text-sm">Exact capacity, degradation rate, and remaining lifespan (0 to 20 years)</p>
+                            <p class="font-bold text-white">Battery Health Score</p>
+                            <p class="text-gray-400 text-sm">Exact capacity, degradation rate, and remaining lifespan</p>
                         </div>
                     </div>
                     <div class="flex gap-4">
-                        <span class="text-2xl">🔮</span>
+                        <span class="text-3xl">🔮</span>
                         <div>
-                            <p class="font-bold text-gray-900">6+ Month Predictions</p>
-                            <p class="text-gray-600 text-sm">When battery will need replacement, with 94% accuracy</p>
+                            <p class="font-bold text-white">6+ Month Predictions</p>
+                            <p class="text-gray-400 text-sm">When battery will need replacement with AI accuracy</p>
                         </div>
                     </div>
                     <div class="flex gap-4">
-                        <span class="text-2xl">⚡</span>
+                        <span class="text-3xl">⚡</span>
                         <div>
-                            <p class="font-bold text-gray-900">Charging Optimization</p>
-                            <p class="text-gray-600 text-sm">AI-personalized charging tips to extend battery life 2 to 5 years</p>
+                            <p class="font-bold text-white">Charging Optimization</p>
+                            <p class="text-gray-400 text-sm">AI-personalized tips to extend battery life 2 to 5 years</p>
                         </div>
                     </div>
                     <div class="flex gap-4">
-                        <span class="text-2xl">💬</span>
+                        <span class="text-3xl">💬</span>
                         <div>
-                            <p class="font-bold text-gray-900">AI Chat Support</p>
-                            <p class="text-gray-600 text-sm">Ask anything about your battery. Get instant AI-powered answers</p>
+                            <p class="font-bold text-white">AI Chat Support</p>
+                            <p class="text-gray-400 text-sm">Ask anything about your battery instantly</p>
                         </div>
                     </div>
                     <div class="flex gap-4">
-                        <span class="text-2xl">📋</span>
+                        <span class="text-3xl">📋</span>
                         <div>
-                            <p class="font-bold text-gray-900">Warranty Claims</p>
-                            <p class="text-gray-600 text-sm">Data-backed proof of battery condition for warranty disputes</p>
+                            <p class="font-bold text-white">Warranty Claims</p>
+                            <p class="text-gray-400 text-sm">Data-backed proof of battery condition</p>
                         </div>
                     </div>
                     <div class="flex gap-4">
-                        <span class="text-2xl">🔐</span>
+                        <span class="text-3xl">🔐</span>
                         <div>
-                            <p class="font-bold text-gray-900">Privacy First</p>
-                            <p class="text-gray-600 text-sm">End-to-end encrypted. We never sell your data. Ever.</p>
+                            <p class="font-bold text-white">Privacy First</p>
+                            <p class="text-gray-400 text-sm">End-to-end encrypted. We never sell your data.</p>
                         </div>
                     </div>
                 </div>
@@ -230,277 +305,216 @@
     </section>
 
     <!-- PRICING SECTION -->
-    <section id="pricing" class="py-20 px-4 sm:px-6 bg-white">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-center text-gray-900 mb-4">Simple Pricing</h2>
-            <p class="text-center text-gray-600 text-lg mb-12">Choose the plan that fits you. Upgrade anytime. Cancel anytime.</p>
+    <section id="pricing" class="py-32 px-4 sm:px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-black mb-4 text-gradient">Simple Pricing</h2>
+                <p class="text-xl text-gray-300">Choose your plan. Upgrade anytime. Cancel anytime.</p>
+            </div>
 
-            <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 <!-- Free Plan -->
-                <div class="border border-gray-200 rounded-xl p-8 hover-lift">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Free</h3>
-                    <p class="text-gray-600 mb-6">Perfect for getting started</p>
+                <div class="hover-lift card-gradient-1 p-8 rounded-2xl">
+                    <h3 class="text-3xl font-bold text-white mb-2">Free</h3>
+                    <p class="text-gray-300 mb-6">Perfect for getting started</p>
                     <div class="mb-8">
-                        <span class="text-5xl font-bold text-gray-900">$0</span>
-                        <span class="text-gray-600">/month</span>
+                        <span class="text-5xl font-black text-green-400">$0</span>
+                        <span class="text-gray-400">/month</span>
                     </div>
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-center gap-3">
-                            <span class="text-green-600 font-bold">✓</span>
-                            <span class="text-gray-700">Battery health score</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="text-green-600 font-bold">✓</span>
-                            <span class="text-gray-700">Current battery capacity</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="text-green-600 font-bold">✓</span>
-                            <span class="text-gray-700">Monthly updates</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="text-gray-300 font-bold">✗</span>
-                            <span class="text-gray-400">Degradation predictions</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="text-gray-300 font-bold">✗</span>
-                            <span class="text-gray-400">AI charging tips</span>
-                        </li>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-2 text-white">✨ Battery health score</li>
+                        <li class="flex items-center gap-2 text-white">✨ Current battery capacity</li>
+                        <li class="flex items-center gap-2 text-white">✨ Monthly updates</li>
+                        <li class="flex items-center gap-2 text-gray-500">○ Degradation predictions</li>
+                        <li class="flex items-center gap-2 text-gray-500">○ AI charging tips</li>
                     </ul>
-                    <button class="w-full border-2 border-gray-300 text-gray-700 py-3 rounded-lg font-bold hover:border-gray-400 transition">
+                    <button class="w-full glass-effect text-white py-3 rounded-xl font-bold hover:shadow-lg transition">
                         Get Started Free
                     </button>
                 </div>
 
                 <!-- Premium Plan -->
-                <div class="border-2 border-blue-600 rounded-xl p-8 hover-lift bg-gradient-to-br from-blue-50 to-white relative">
-                    <div class="absolute top-0 right-0 bg-blue-600 text-white px-4 py-1 rounded-bl-lg text-sm font-bold">Most Popular</div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Premium</h3>
-                    <p class="text-gray-600 mb-6">Everything you need</p>
+                <div class="hover-lift card-gradient-2 p-8 rounded-2xl border-2 border-green-400 relative">
+                    <div class="absolute -top-4 right-4 gradient-tertiary text-white px-4 py-1 rounded-full text-sm font-bold">Most Popular</div>
+                    <h3 class="text-3xl font-bold text-white mb-2">Premium</h3>
+                    <p class="text-gray-300 mb-6">Everything you need</p>
                     <div class="mb-8">
-                        <span class="text-5xl font-bold text-blue-600">$9.99</span>
-                        <span class="text-gray-600">/month</span>
-                        <p class="text-sm text-green-600 font-bold mt-2">Limited: $4.99/mo first 3 months</p>
+                        <span class="text-5xl font-black text-emerald-400">$9.99</span>
+                        <span class="text-gray-400">/month</span>
+                        <p class="text-sm text-green-400 font-bold mt-2">Limited: $4.99/mo first 3 months</p>
                     </div>
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-center gap-3">
-                            <span class="text-blue-600 font-bold">✓</span>
-                            <span class="text-gray-700">Everything in Free</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="text-blue-600 font-bold">✓</span>
-                            <span class="text-gray-700"><strong>Battery failure predictions (6+ months ahead)</strong></span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="text-blue-600 font-bold">✓</span>
-                            <span class="text-gray-700"><strong>AI charging optimization</strong></span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="text-blue-600 font-bold">✓</span>
-                            <span class="text-gray-700">Weekly health reports</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <span class="text-blue-600 font-bold">✓</span>
-                            <span class="text-gray-700">Priority AI support</span>
-                        </li>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-2 text-white">✨ Everything in Free</li>
+                        <li class="flex items-center gap-2 text-white">✨ Battery failure predictions (6+ months)</li>
+                        <li class="flex items-center gap-2 text-white">✨ AI charging optimization</li>
+                        <li class="flex items-center gap-2 text-white">✨ Weekly health reports</li>
+                        <li class="flex items-center gap-2 text-white">✨ Priority AI support</li>
                     </ul>
-                    <button class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-lg font-bold hover:shadow-lg transform hover:-translate-y-1 transition">
+                    <button class="w-full gradient-primary hover-lift btn-glow text-white py-3 rounded-xl font-bold shadow-lg">
                         Start 50% Off (First 3 Months)
                     </button>
-                    <p class="text-center text-sm text-gray-600 mt-4">Then $9.99/month. Cancel anytime.</p>
+                    <p class="text-center text-sm text-gray-400 mt-4">Then $9.99/month. Cancel anytime.</p>
                 </div>
             </div>
 
-            <p class="text-center text-gray-600 text-sm mt-8">
+            <p class="text-center text-gray-400 text-sm mt-8">
                 All plans include end-to-end encryption, no data selling, and 30-day money-back guarantee.
             </p>
         </div>
     </section>
 
     <!-- FAQ SECTION -->
-    <section id="faq" class="py-20 px-4 sm:px-6 bg-gradient-to-b from-white to-blue-50">
-        <div class="max-w-3xl mx-auto">
-            <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">Common Questions</h2>
+    <section id="faq" class="py-32 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-black mb-4 text-gradient">Common Questions</h2>
+            </div>
 
             <div class="space-y-4">
-                <!-- FAQ Item 1 -->
-                <details class="group border border-gray-200 rounded-lg p-6 hover:border-blue-300 cursor-pointer transition">
-                    <summary class="flex justify-between items-center font-bold text-gray-900 text-lg">
+                <details class="group glass-effect p-6 rounded-xl cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-white text-lg">
                         How accurate are the predictions?
-                        <span class="text-2xl transform group-open:rotate-180 transition">➤</span>
+                        <span class="text-2xl transform group-open:rotate-180 transition text-emerald-400">➤</span>
                     </summary>
-                    <p class="text-gray-700 mt-4">
-                        94% accuracy on 6-month predictions, based on testing with 50,000+ batteries across all major brands. Our AI models continuously improve as we collect more data. We're more accurate than manufacturer estimates because we analyze your specific driving patterns.
-                    </p>
+                    <p class="text-gray-300 mt-4">Our AI models analyze your specific driving patterns and data to provide accurate battery health predictions.</p>
                 </details>
 
-                <!-- FAQ Item 2 -->
-                <details class="group border border-gray-200 rounded-lg p-6 hover:border-blue-300 cursor-pointer transition">
-                    <summary class="flex justify-between items-center font-bold text-gray-900 text-lg">
+                <details class="group glass-effect p-6 rounded-xl cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-white text-lg">
                         Which cars does this work with?
-                        <span class="text-2xl transform group-open:rotate-180 transition">➤</span>
+                        <span class="text-2xl transform group-open:rotate-180 transition text-emerald-400">➤</span>
                     </summary>
-                    <p class="text-gray-700 mt-4">
-                        Currently: Tesla (all models), Volkswagen ID series, Hyundai (Ioniq, Kona EV), Kia (EV6, Niro EV), BMW (i3, i4, iX), Chevy Bolt, Nissan Leaf, Audi e-tron. Adding 10 more brands per month. If your car isn't listed, we're likely adding it soon. Sign up and we'll notify you.
-                    </p>
+                    <p class="text-gray-300 mt-4">We support Tesla, VW, Hyundai, Kia, BMW, Chevy, Nissan, Audi and more. We're continuously adding new vehicle brands.</p>
                 </details>
 
-                <!-- FAQ Item 3 -->
-                <details class="group border border-gray-200 rounded-lg p-6 hover:border-blue-300 cursor-pointer transition">
-                    <summary class="flex justify-between items-center font-bold text-gray-900 text-lg">
+                <details class="group glass-effect p-6 rounded-xl cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-white text-lg">
                         Is my data secure?
-                        <span class="text-2xl transform group-open:rotate-180 transition">➤</span>
+                        <span class="text-2xl transform group-open:rotate-180 transition text-emerald-400">➤</span>
                     </summary>
-                    <p class="text-gray-700 mt-4">
-                        100% encrypted end-to-end. We never see your raw vehicle data. We never sell or share your information. SOC 2 Type II certified. Full privacy policy available. We're stricter than Apple on privacy because battery health is sensitive personal data.
-                    </p>
+                    <p class="text-gray-300 mt-4">100% encrypted end-to-end. SOC 2 certified. We're strict about privacy and never sell your data.</p>
                 </details>
 
-                <!-- FAQ Item 4 -->
-                <details class="group border border-gray-200 rounded-lg p-6 hover:border-blue-300 cursor-pointer transition">
-                    <summary class="flex justify-between items-center font-bold text-gray-900 text-lg">
+                <details class="group glass-effect p-6 rounded-xl cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-white text-lg">
                         Can I cancel anytime?
-                        <span class="text-2xl transform group-open:rotate-180 transition">➤</span>
+                        <span class="text-2xl transform group-open:rotate-180 transition text-emerald-400">➤</span>
                     </summary>
-                    <p class="text-gray-700 mt-4">
-                        Yes. No contracts. No hidden fees. Cancel in 10 seconds from app settings. 30-day money-back guarantee if you're not satisfied. We make money by being useful, not by trapping customers.
-                    </p>
+                    <p class="text-gray-300 mt-4">Yes. No contracts. Cancel in 10 seconds. 30-day money-back guarantee.</p>
                 </details>
 
-                <!-- FAQ Item 5 -->
-                <details class="group border border-gray-200 rounded-lg p-6 hover:border-blue-300 cursor-pointer transition">
-                    <summary class="flex justify-between items-center font-bold text-gray-900 text-lg">
+                <details class="group glass-effect p-6 rounded-xl cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-white text-lg">
                         How will this help me sell my car?
-                        <span class="text-2xl transform group-open:rotate-180 transition">➤</span>
+                        <span class="text-2xl transform group-open:rotate-180 transition text-emerald-400">➤</span>
                     </summary>
-                    <p class="text-gray-700 mt-4">
-                        When selling, you can share your battery health report with buyers. Proof of good maintenance equals higher offer. We generate a beautiful, easy-to-understand report you can show buyers or include in listings. Battery condition is the #1 factor affecting used EV prices. This protects your investment.
-                    </p>
+                    <p class="text-gray-300 mt-4">Share your battery health report with buyers. Battery condition is the #1 factor in used EV prices.</p>
                 </details>
 
-                <!-- FAQ Item 6 -->
-                <details class="group border border-gray-200 rounded-lg p-6 hover:border-blue-300 cursor-pointer transition">
-                    <summary class="flex justify-between items-center font-bold text-gray-900 text-lg">
+                <details class="group glass-effect p-6 rounded-xl cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-white text-lg">
                         Does this void my warranty?
-                        <span class="text-2xl transform group-open:rotate-180 transition">➤</span>
+                        <span class="text-2xl transform group-open:rotate-180 transition text-emerald-400">➤</span>
                     </summary>
-                    <p class="text-gray-700 mt-4">
-                        No. We only read data your car exposes publicly via its API. We never modify anything. This is exactly like checking your battery in the official app. Completely warranty-safe. Many warranty claims departments specifically ask for BatteryShield reports as evidence.
-                    </p>
+                    <p class="text-gray-300 mt-4">No. We only read data your car exposes. Never modify anything. Completely warranty-safe.</p>
                 </details>
 
-                <!-- FAQ Item 7 -->
-                <details class="group border border-gray-200 rounded-lg p-6 hover:border-blue-300 cursor-pointer transition">
-                    <summary class="flex justify-between items-center font-bold text-gray-900 text-lg">
+                <details class="group glass-effect p-6 rounded-xl cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-white text-lg">
                         What if my car isn't supported yet?
-                        <span class="text-2xl transform group-open:rotate-180 transition">➤</span>
+                        <span class="text-2xl transform group-open:rotate-180 transition text-emerald-400">➤</span>
                     </summary>
-                    <p class="text-gray-700 mt-4">
-                        Sign up with your email. We're adding 10 new car brands every month. When your brand is supported, you get a free 3-month Premium trial to make up for waiting. We prioritize based on demand. Popular cars are added first.
-                    </p>
+                    <p class="text-gray-300 mt-4">Sign up with your email. Get free premium trial when your car is supported.</p>
                 </details>
 
-                <!-- FAQ Item 8 -->
-                <details class="group border border-gray-200 rounded-lg p-6 hover:border-blue-300 cursor-pointer transition">
-                    <summary class="flex justify-between items-center font-bold text-gray-900 text-lg">
+                <details class="group glass-effect p-6 rounded-xl cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-white text-lg">
                         How often do predictions update?
-                        <span class="text-2xl transform group-open:rotate-180 transition">➤</span>
+                        <span class="text-2xl transform group-open:rotate-180 transition text-emerald-400">➤</span>
                     </summary>
-                    <p class="text-gray-700 mt-4">
-                        Every time you drive. Our AI learns your specific patterns. How you charge, where you drive, weather conditions, etc. More data equals more accurate predictions. After 6 months of driving, predictions become incredibly accurate (within weeks of actual failure).
-                    </p>
+                    <p class="text-gray-300 mt-4">Every time you drive. Our AI learns your patterns over time for increasingly accurate predictions.</p>
                 </details>
             </div>
         </div>
     </section>
 
     <!-- EMAIL SIGNUP SECTION -->
-    <section id="signup" class="py-20 px-4 sm:px-6 bg-gradient-to-r from-blue-600 to-blue-700 text-white">
-        <div class="max-w-3xl mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-4">Join 2,340+ EV Owners</h2>
-            <p class="text-xl mb-8 text-blue-100">
-                Get early access to BatteryShield. Built by Ramesh Yallappa Nandiwale.
-            </p>
+    <section id="signup" class="py-32 px-4 sm:px-6 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-0 right-0 w-96 h-96 bg-teal-600 rounded-full mix-blend-multiply filter blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 w-96 h-96 bg-emerald-600 rounded-full mix-blend-multiply filter blur-3xl"></div>
+        </div>
 
-            <div class="bg-white rounded-lg p-8 mb-6">
-                <input type="email" placeholder="your@email.com" class="w-full px-6 py-3 rounded-lg border border-gray-300 text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-blue-600 mb-4">
-                <button class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-lg font-bold text-lg hover:shadow-lg transform hover:-translate-y-1 transition">
+        <div class="max-w-3xl mx-auto text-center relative z-10">
+            <h2 class="text-5xl md:text-6xl font-black mb-4 text-gradient">Join EV Owners</h2>
+            <p class="text-xl text-gray-300 mb-2">
+                Get early access to BatteryShield
+            </p>
+            <p class="text-sm text-gray-400 mb-8">Founded by Ramesh Yallappa Nandiwale</p>
+
+            <div class="glass-effect p-8 rounded-2xl mb-6">
+                <input type="email" placeholder="your@email.com" class="w-full px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 mb-4">
+                <button class="w-full gradient-primary hover-lift btn-glow text-white py-4 rounded-xl font-bold text-lg shadow-lg">
                     Get Early Access (Free)
                 </button>
             </div>
 
-            <p class="text-sm text-blue-100">
-                ✓ No credit card required
-                <br/>✓ We'll never spam you (1 to 2 emails per month max)
-                <br/>✓ Unsubscribe anytime
-            </p>
-        </div>
-    </section>
-
-    <!-- FOUNDER CREDIT SECTION -->
-    <section class="py-12 px-4 sm:px-6 bg-gray-50 border-t border-gray-200">
-        <div class="max-w-6xl mx-auto text-center">
-            <p class="text-gray-600 mb-2">Built with expertise in battery science and AI</p>
-            <p class="text-2xl font-bold text-gray-900">
-                🛡️ BatteryShield
-            </p>
-            <p class="text-gray-700 font-medium mt-2">
-                Founded by <span class="text-blue-600 font-bold">Ramesh Yallappa Nandiwale</span>
-            </p>
-            <p class="text-sm text-gray-600 mt-4 max-w-2xl mx-auto">
-                AI-powered battery health monitoring for electric vehicle owners. 
-                Combining battery science, machine learning, and real-world driving data to help EV owners 
-                understand and protect their battery investment.
-            </p>
+            <div class="space-y-2 text-gray-300">
+                <p class="flex items-center justify-center gap-2">✨ No credit card required</p>
+                <p class="flex items-center justify-center gap-2">✨ We'll never spam you</p>
+                <p class="flex items-center justify-center gap-2">✨ Unsubscribe anytime</p>
+            </div>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="bg-gray-900 text-gray-300 py-12 px-4 sm:px-6">
+    <footer class="bg-black/50 text-gray-400 py-12 px-4 sm:px-6 border-t border-emerald-500/20">
         <div class="max-w-6xl mx-auto">
             <div class="grid md:grid-cols-4 gap-8 mb-8">
                 <div>
                     <div class="flex items-center space-x-2 mb-4">
-                        <span class="text-2xl">🛡️</span>
+                        <div class="gradient-primary p-2 rounded-lg">
+                            <span class="text-xl">🛡️</span>
+                        </div>
                         <span class="font-bold text-white">BatteryShield</span>
                     </div>
                     <p class="text-sm">AI-powered battery monitoring for EV owners.</p>
-                    <p class="text-xs text-gray-500 mt-2">Founded by Ramesh Yallappa Nandiwale</p>
                 </div>
                 <div>
                     <h4 class="font-bold text-white mb-4">Product</h4>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="#why" class="hover:text-white transition">Why It Matters</a></li>
-                        <li><a href="#how" class="hover:text-white transition">How It Works</a></li>
-                        <li><a href="#pricing" class="hover:text-white transition">Pricing</a></li>
-                        <li><a href="#faq" class="hover:text-white transition">FAQ</a></li>
+                        <li><a href="#why" class="hover:text-emerald-400 transition">Why It Matters</a></li>
+                        <li><a href="#how" class="hover:text-emerald-400 transition">How It Works</a></li>
+                        <li><a href="#pricing" class="hover:text-emerald-400 transition">Pricing</a></li>
+                        <li><a href="#faq" class="hover:text-emerald-400 transition">FAQ</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-bold text-white mb-4">Company</h4>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-white transition">About</a></li>
-                        <li><a href="#" class="hover:text-white transition">Blog</a></li>
-                        <li><a href="#" class="hover:text-white transition">Contact</a></li>
+                        <li><a href="#" class="hover:text-emerald-400 transition">About</a></li>
+                        <li><a href="#" class="hover:text-emerald-400 transition">Blog</a></li>
+                        <li><a href="#" class="hover:text-emerald-400 transition">Contact</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-bold text-white mb-4">Legal</h4>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-white transition">Privacy</a></li>
-                        <li><a href="#" class="hover:text-white transition">Terms</a></li>
-                        <li><a href="#" class="hover:text-white transition">Security</a></li>
+                        <li><a href="#" class="hover:text-emerald-400 transition">Privacy</a></li>
+                        <li><a href="#" class="hover:text-emerald-400 transition">Terms</a></li>
+                        <li><a href="#" class="hover:text-emerald-400 transition">Security</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-gray-800 pt-8 text-center text-sm">
+            <div class="border-t border-emerald-500/20 pt-8 text-center text-sm">
                 <p>&copy; 2024 BatteryShield. All rights reserved.</p>
-                <p class="mt-2">Built by Ramesh Yallappa Nandiwale. Made for EV owners who care about their batteries.</p>
+                <p class="mt-2">Made for EV owners who care about their batteries.</p>
+                <p class="mt-3 text-gray-500">Founded by Ramesh Yallappa Nandiwale</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -508,13 +522,6 @@
                 if (target) {
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
-            });
-        });
-
-        // Analytics: Track when people click CTA buttons
-        document.querySelectorAll('[href="#signup"]').forEach(button => {
-            button.addEventListener('click', function() {
-                console.log('CTA clicked - navigating to signup');
             });
         });
     </script>
