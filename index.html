@@ -124,7 +124,6 @@
                 <a href="#how" class="text-gray-300 hover:text-emerald-400 font-medium transition">How It Works</a>
                 <a href="#pricing" class="text-gray-300 hover:text-emerald-400 font-medium transition">Pricing</a>
                 <a href="#faq" class="text-gray-300 hover:text-emerald-400 font-medium transition">FAQ</a>
-                <a href="#signup" class="gradient-primary text-white px-6 py-2 rounded-lg hover:shadow-lg transition font-bold">Get Early Access</a>
             </div>
         </div>
     </nav>
@@ -141,7 +140,7 @@
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div>
                     <div class="inline-block gradient-secondary text-white px-4 py-2 rounded-full text-sm font-bold mb-6">
-                         AI-Powered Battery Monitoring
+                        AI-Powered Battery Monitoring
                     </div>
 
                     <h1 class="text-6xl md:text-7xl font-black mb-6 leading-tight">
@@ -161,8 +160,8 @@
                     </p>
                     
                     <div class="flex flex-col sm:flex-row gap-4 mb-8">
-                        <a href="#signup" class="gradient-primary hover-lift btn-glow text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg">
-                            Get Early Access (Free)
+                        <a href="#applicationForm" class="gradient-primary hover-lift btn-glow text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg">
+                            Apply Now
                         </a>
                         <button class="glass-effect hover:glass-effect text-white px-8 py-4 rounded-xl font-bold text-lg transition hover:shadow-lg">
                             Watch Demo (2 min)
@@ -438,31 +437,114 @@
         </div>
     </section>
 
-    <!-- EMAIL SIGNUP SECTION -->
-    <section id="signup" class="py-32 px-4 sm:px-6 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-20">
-            <div class="absolute top-0 right-0 w-96 h-96 bg-teal-600 rounded-full mix-blend-multiply filter blur-3xl"></div>
-            <div class="absolute bottom-0 left-0 w-96 h-96 bg-emerald-600 rounded-full mix-blend-multiply filter blur-3xl"></div>
-        </div>
-
-        <div class="max-w-3xl mx-auto text-center relative z-10">
-            <h2 class="text-5xl md:text-6xl font-black mb-4 text-gradient">Join EV Owners</h2>
-            <p class="text-xl text-gray-300 mb-2">
-                Get early access to BatteryShield
-            </p>
-            <p class="text-sm text-gray-400 mb-8">Founded by Ramesh Yallappa Nandiwale</p>
-
-            <div class="glass-effect p-8 rounded-2xl mb-6">
-                <input type="email" placeholder="your@email.com" class="w-full px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 mb-4">
-                <button class="w-full gradient-primary hover-lift btn-glow text-white py-4 rounded-xl font-bold text-lg shadow-lg">
-                    Get Early Access (Free)
-                </button>
+    <!-- APPLICATION FORM SECTION -->
+    <section class="py-32 px-4 sm:px-6">
+        <div class="max-w-2xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-5xl md:text-6xl font-black mb-4 text-gradient">Apply for Early Access</h2>
+                <p class="text-xl text-gray-300">Join the beta. Shape the future of EV battery monitoring.</p>
             </div>
 
-            <div class="space-y-2 text-gray-300">
-                <p class="flex items-center justify-center gap-2">✨ No credit card required</p>
-                <p class="flex items-center justify-center gap-2">✨ We'll never spam you</p>
-                <p class="flex items-center justify-center gap-2">✨ Unsubscribe anytime</p>
+            <div class="glass-effect p-8 rounded-2xl">
+                <form id="applicationForm" method="POST" action="https://formspree.io/f/mqeowwpp" class="space-y-6">
+                    <!-- Name Field -->
+                    <div>
+                        <label class="block text-white font-bold mb-2">Full Name *</label>
+                        <input 
+                            type="text" 
+                            name="name" 
+                            required
+                            placeholder="John Smith"
+                            class="w-full px-4 py-3 rounded-lg bg-white/10 border border-emerald-400/30 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        />
+                    </div>
+
+                    <!-- Email Field -->
+                    <div>
+                        <label class="block text-white font-bold mb-2">Email Address *</label>
+                        <input 
+                            type="email" 
+                            name="email" 
+                            required
+                            placeholder="you@email.com"
+                            class="w-full px-4 py-3 rounded-lg bg-white/10 border border-emerald-400/30 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        />
+                    </div>
+
+                    <!-- Phone Field -->
+                    <div>
+                        <label class="block text-white font-bold mb-2">Phone Number</label>
+                        <input 
+                            type="tel" 
+                            name="phone" 
+                            placeholder="+1 (555) 123-4567"
+                            class="w-full px-4 py-3 rounded-lg bg-white/10 border border-emerald-400/30 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        />
+                    </div>
+
+                    <!-- Car Model Field -->
+                    <div>
+                        <label class="block text-white font-bold mb-2">EV Model *</label>
+                        <select 
+                            name="car_model" 
+                            required
+                            class="w-full px-4 py-3 rounded-lg bg-white/10 border border-emerald-400/30 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        >
+                            <option value="" class="bg-gray-900">Select your car...</option>
+                            <option value="Tesla Model 3" class="bg-gray-900">Tesla Model 3</option>
+                            <option value="Tesla Model Y" class="bg-gray-900">Tesla Model Y</option>
+                            <option value="Tesla Model S" class="bg-gray-900">Tesla Model S</option>
+                            <option value="Tesla Model X" class="bg-gray-900">Tesla Model X</option>
+                            <option value="VW ID.3" class="bg-gray-900">VW ID.3</option>
+                            <option value="VW ID.4" class="bg-gray-900">VW ID.4</option>
+                            <option value="VW ID.5" class="bg-gray-900">VW ID.5</option>
+                            <option value="Hyundai Ioniq 5" class="bg-gray-900">Hyundai Ioniq 5</option>
+                            <option value="Hyundai Ioniq 6" class="bg-gray-900">Hyundai Ioniq 6</option>
+                            <option value="Kia EV6" class="bg-gray-900">Kia EV6</option>
+                            <option value="BMW i4" class="bg-gray-900">BMW i4</option>
+                            <option value="Chevy Bolt" class="bg-gray-900">Chevy Bolt</option>
+                            <option value="Nissan Leaf" class="bg-gray-900">Nissan Leaf</option>
+                            <option value="Other" class="bg-gray-900">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Message Field -->
+                    <div>
+                        <label class="block text-white font-bold mb-2">Message (Optional)</label>
+                        <textarea 
+                            name="message" 
+                            rows="4"
+                            placeholder="Tell us why you're interested in BatteryShield..."
+                            class="w-full px-4 py-3 rounded-lg bg-white/10 border border-emerald-400/30 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+                        ></textarea>
+                    </div>
+
+                    <!-- Checkbox -->
+                    <div class="flex items-start gap-3">
+                        <input 
+                            type="checkbox" 
+                            name="agree" 
+                            required
+                            id="agree"
+                            class="mt-1 w-5 h-5 rounded bg-white/10 border border-emerald-400/30 text-emerald-500 focus:ring-emerald-500"
+                        />
+                        <label for="agree" class="text-gray-300 text-sm">
+                            I agree to receive updates about BatteryShield and understand my data will be kept secure
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button 
+                        type="submit"
+                        class="w-full gradient-primary hover-lift btn-glow text-white py-4 rounded-xl font-bold text-lg shadow-lg transition"
+                    >
+                        ✨ Send Application
+                    </button>
+
+                    <p class="text-center text-gray-400 text-sm">
+                        We'll review your application and get back to you within 24 hours.
+                    </p>
+                </form>
             </div>
         </div>
     </section>
